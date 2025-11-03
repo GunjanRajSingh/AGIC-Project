@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dashboard-frontend
+  template:
+    metadata:
+      labels:
+        app: dashboard-frontend
+    spec:
+      containers:
+      - name: dashboard-frontend
+        image: containerregnew.azurecr.io/dashboard-frontend:2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: REACT_APP_API_URL
+          value: "http://dashboard-api.default.svc.cluster.local:8080"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard-frontend
+spec:
+  selector:
+    app: dashboard-frontend
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
