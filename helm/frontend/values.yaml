@@ -1,0 +1,42 @@
+replicaCount: 2
+
+# Default image values; you can override per service below
+image:
+  tag: "v1"
+  pullPolicy: IfNotPresent
+
+# Ingress host and toggle
+ingress:
+  enabled: true
+  host: "myapp.local"
+
+# Define the four frontends
+frontends:
+  - name: auth-frontend
+    imageRepository: "containerregnew.azurecr.io/auth-frontend"    # change to your repo, e.g., gunjanrepo/auth-frontend
+    containerPort: 80
+    path: /auth
+    apiURL: "http://auth-api.default.svc.cluster.local:8080"
+  - name: user-frontend
+    imageRepository: "containerregnew.azurecr.io/user-frontend"
+    containerPort: 80
+    path: /user
+    apiURL: "http://user-api.default.svc.cluster.local:8080"
+  - name: dashboard-frontend
+    imageRepository: "containerregnew.azurecr.io/dashboard-frontend"
+    containerPort: 80
+    path: /dashboard
+    apiURL: "http://dashboard-api.default.svc.cluster.local:8080"
+  - name: notification-frontend
+    imageRepository: "containerregnew.azurecr.io/notification-frontend"
+    containerPort: 80
+    path: /notify
+    apiURL: "http://notification-api.default.svc.cluster.local:8080"
+
+resources:
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+  requests:
+    cpu: "50m"
+    memory: "64Mi"

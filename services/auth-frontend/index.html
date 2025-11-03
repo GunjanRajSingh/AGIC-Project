@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>auth-frontend</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>auth-frontend</h1>
+    <p id="desc">This is the auth-frontend micro-frontend deployed on Kubernetes.</p>
+    <div class="card">
+      <div><strong>Runtime API URL:</strong> <code id="apiUrl"></code></div>
+      <div><strong>Health Check:</strong> <code id="health"></code></div>
+    </div>
+    <div class="footer">
+      <p>Image served by NGINX · Config injected via <code>env.js</code>.</p>
+    </div>
+  </div>
+  <script src="env.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{{- range .Values.frontends }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}-env
+data:
+  env.js: |
+    window.__CONFIG__ = {{
+      API_URL: "{{ .apiURL }}"
+    }};
+---
+{{- end }}
